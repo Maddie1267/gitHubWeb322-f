@@ -6,6 +6,7 @@ const app = express();
 app.use(express.static('public'));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
+const PORT = process.env.port || 3000;
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get("/",(req,res)=>
@@ -63,6 +64,6 @@ if(errors.length > 0)
 
 });
 
-app.listen("3000", ()=>{
+app.listen(PORT, ()=>{
     console.log("Connected");
 })
