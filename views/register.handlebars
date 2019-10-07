@@ -1,0 +1,134 @@
+<top><h1> Register </h1> <span></span></top>
+<div id="signUp"> 
+<form id="registerBox" method="POST" action="/registeration">
+   
+    <p id="acc"> Make An Account </p>
+    <hr>
+  
+  <input type="email" name="email" placeholder="Enter Your Email" class="textbox"> 
+ {{#each register}}
+    <div class="errors">  {{this}}
+  </div>
+  {{/each}} 
+  
+  <input type="text" name="fname" placeholder="First name"  class="textbox">
+  <input type="text" name="lname" placeholder="Last name"  class="textbox">
+  <input type="password" name="pword" placeholder="Create A Password"  class="textbox">
+  <hr>
+
+  <label ><b>Birthday</b></label>
+ <!-- <p>To register you must be atleast 18.</b></p> -->
+  <select class="box">
+      <option value="0">Month</option>
+    <option value="1">January</option>
+    <option value="2">Febuary</option>
+    <option value="3">March</option>
+    <option value="4">April</option>
+    <option value="5">May</option>
+    <option value="6">June</option>
+    <option value="7">July</option>
+    <option value="8">August</option>
+    <option value="9">September</option>
+    <option value="10">October</option>
+    <option value="11">November</option>
+     <option value="12">December</option>
+  </select>
+  <select class="box">
+      <option value="Day">Day</option>
+      <option value="Day1">1</option>
+      <option value="Day2">2</option>
+      <option value="Day3">3</option>
+      <option value="Day4">4</option>
+      <option value="Day5">5</option>
+      <option value="Day6">6</option>
+      <option value="Day7">7</option>
+      <option value="Day8">8</option>
+      <option value="Day9">9</option>
+      <option value="Day10">10</option>
+      <option value="Day11">11</option>
+      <option value="Day12">12</option>
+      <option value="Day13">13</option>
+      <option value="Day14">14</option>
+      <option value="Day15">15</option>
+      <option value="Day16">16</option>
+      <option value="Day17">17</option>
+      <option value="Day18">18</option>
+      <option value="Day19">19</option>
+      <option value="Day20">20</option>
+      <option value="Day21">21</option>
+      <option value="Day22">22</option>
+      <option value="Day23">23</option>
+      <option value="Day24">24</option>
+      <option value="Day25">25</option>
+      <option value="Day26">26</option>
+      <option value="Day27">27</option>
+      <option value="Day28">28</option>
+      <option value="Day29">29</option>
+      <option value="Day30">30</option>
+      <option value="Day31">31</option>
+  </select>
+  <select class="box">
+      <option value="year">Year</option>
+      <option value="year">1953</option>
+      <option value="year">1954</option>
+      <option value="year">1955</option>
+      <option value="year">1956</option>
+      <option value="year">1957</option>
+      <option value="year">1958</option>
+      <option value="year">1959</option>
+      <option value="year">1960</option>
+      <option value="year">1961</option>
+      <option value="year">1962</option>
+        <option value="year">1963</option>
+        <option value="year">1964</option>
+      <option value="year">1965</option>
+      <option value="year">1966</option>
+      <option value="year">1967</option>
+      <option value="year">1968</option>
+      <option value="year">1969</option>
+       <option value="year">1970</option>
+       <option value="year">1971</option>
+       <option value="year">1972</option>
+       <option value="year">1973</option>
+       <option value="year">1974</option>
+       <option value="year">1975</option>
+       <option value="year">1976</option>
+       <option value="year">1977</option>
+       <option value="year">1978</option>
+       <option value="year">1979</option>
+       <option value="year">1980</option>
+       <option value="year">1981</option>
+       <option value="year">1982</option>
+       <option value="year">1983</option>
+       <option value="year">1984</option>
+       <option value="year">1985</option>
+       <option value="year">1986</option>
+       <option value="year">1987</option>
+       <option value="year">1988</option>
+       <option value="year">1989</option>
+      <option value="year">1989</option>
+      <option value="year">1990</option>
+      <option value="year">1991</option>
+      <option value="year">1992</option>
+      <option value="year">1993</option>
+      <option value="year">1994</option>
+      <option value="year">1995</option>
+      <option value="year">1996</option>
+      <option value="year">1997</option>
+       <option value="year">1998</option>
+       <option value="year">1999</option>
+       <option value="year">2000</option>
+      <option value="year">2001</option>
+  </select>
+<hr> 
+
+
+<button class="button"type="submit">Sign Up</button>
+
+</form>
+
+</div>
+
+
+
+
