@@ -10,8 +10,14 @@
          <h1 id="getStart">Getting Started</h1>
     </div>
     <hr>
-    <form>
-        <label class="lab"> Where?</label>
+    
+    <form method="POST" action="/">
+     {{#each error}}
+    <div class="errors"> 
+       {{this}}
+  </div>
+  {{/each}}
+        <label class="lab">Where?</label>
             <select class="textbox">
                 <option value="Toronto">Toronto</option>
                 <option value="Hamilon">Hamilton</option>
@@ -19,9 +25,9 @@
                 <option value="Ottawa">Ottawa</option>
             </select>
         <label class="lab">Checkin Date </label>
-            <input type="date">
+            <input type="date" name="checkIn" value={{f_date}}>
         <label class="lab">  Checkout Date </label>
-            <input type="date">
+            <input type="date" name="checkOut">
         <label class="lab">Number Of Guests</label>
             <select class="textbox">
                 <option value="1g">1 Guest </option>

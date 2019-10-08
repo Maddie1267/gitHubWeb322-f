@@ -4,23 +4,28 @@
    
     <p id="acc"> Make An Account </p>
     <hr>
-  
-  <input type="email" name="email" placeholder="Enter Your Email" class="textbox"> 
- {{#each register}}
-    <div class="errors">  {{this}}
+   {{#each error}}
+    <div class="errors"> 
+       {{this}}
   </div>
-  {{/each}} 
-  
+  {{/each}}
+  {{#each register}} 
+  <div class="errors">
+     <p></p>{{this}}
+  </div>
+  {{/each}}
+  <input type="email" name="email" placeholder="Enter Your Email" class="textbox">   
   <input type="text" name="fname" placeholder="First name"  class="textbox">
   <input type="text" name="lname" placeholder="Last name"  class="textbox">
   <input type="password" name="pword" placeholder="Create A Password"  class="textbox">
+
   <hr>
 
   <label ><b>Birthday</b></label>
  <!-- <p>To register you must be atleast 18.</b></p> -->
   <select class="box">
-      <option value="0">Month</option>
-    <option value="1">January</option>
+      <option name="month" value="0">Month</option>
+    <option name="month" value="1">January</option>
     <option value="2">Febuary</option>
     <option value="3">March</option>
     <option value="4">April</option>
