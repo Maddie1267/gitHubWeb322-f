@@ -42,5 +42,26 @@
         <input type="submit" class="button" value="Check For Rooms">
     </form>
 </div>
-
+<div id="login">
+    <h1 id="getStart">Login</h4>
+    
+     <form method="POST" action="/login">
+      {{#each l_error}}
+    <div class="errors"> 
+       {{this}}
+  </div>
+  {{/each}}
+     
+     <label class="userName">Enter Your Email</label>
+     <input type="email" class="textbox" name="l_email"> 
+     
+    
+     <label>Enter Your Password</label>
+     <input type="password" class="textbox" name="l_pword">
+    
+     <p>Not a member? <a href="/registeration">Click here</a></p>
+     
+     <input type="submit" class="button2" value="Sign In"></button>
+     </form>
+</div>
 </div>

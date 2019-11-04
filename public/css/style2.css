@@ -56,7 +56,7 @@ hr {
     padding: 10px 25px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
    
-    margin-top: 3vh;
+    margin-top: 2vh;
     border: 1px solid grey;
 	border-radius: 3px;
 	color: grey;
@@ -126,7 +126,23 @@ hr {
 	
 }
 
+#login {
+    grid-column: 4/6 ;
+   
+	border-radius: 3px;
+	padding: 10%; 
+}
+
 .lab {
     display: block;
     margin-top: 3px;
 }
+
+.button2 {
+    border: none;
+    width: 50%;
+    padding: 10px 25px;
+    font-size: 20px;
+    Background-color: rgb(170, 2, 2); 
+}
+
