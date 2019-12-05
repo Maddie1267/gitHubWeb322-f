@@ -11,10 +11,12 @@ let date = new Date;
 let f_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
 const mongoose = require('mongoose');
 const sendgrid = require('@sendgrid/mail');
-sendgrid.setApiKey("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");
-
-let key = "mongodb+srv://Maddie:mon_5685@cluster0-toqlt.mongodb.net/test?retryWrites=true&w=majority";
-mongoose.connect(key, {useNewUrlParser: true, useUnifiedTopology: true  })
+require("dotenv").config({path:'./config/keys.env'});
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+pass = process.env.MONGO_DB_PASSWORD
+user = process.env.MONGO_DB_USERNAME
+let key = `mongodb+srv://${user}:${pass}@cluster0-toqlt.mongodb.net/test?retryWrites=true&w=majority`;
+mongoose.connect(key, {useNewUrlParser: true, useUnifiedTopology: true })
 .then(()=>{
     console.log(`Connection to database successful`);
 })
@@ -41,7 +43,7 @@ app.get("/",(req,res)=>
 {
     //res.send("Hello")
     res.render("home")
-    
+
 }); 
 app.get("/login",(req,res)=>
 {
@@ -163,8 +165,8 @@ else
             to: w_register.eMail,
             from: 'mallinson@myseneca.ca',
             subject: 'Welcome To MaddieBnB',
-            text: 'Thanks for Joining!',
-            html: 'Finding a place to stay is easy with MaddieBnB',
+            text: '',
+            html: 'Thanks for Joining! Finding a place to stay is easy with MaddieBnB',
           }
           sendgrid.send(msg)
        //   res.redirect('/');
