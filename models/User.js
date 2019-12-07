@@ -1,9 +1,9 @@
   
 const mongoose = require('mongoose');
-
+const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
-const Schema = mongoose.Schema;
+
     const loginSchema = new Schema({
         firstName : String,
         lastName: String,
@@ -12,6 +12,10 @@ const Schema = mongoose.Schema;
             unique: true
         } ,
         password: String,
+        Status: {
+            type: String,
+            default: "User"
+        }
         //DOB: Date
     })
 

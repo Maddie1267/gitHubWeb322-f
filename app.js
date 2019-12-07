@@ -1,35 +1,37 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const sendgrid = require('@sendgrid/mail');
+
+require("dotenv").config({path:'./config/keys.env'});
+
 const userRoutes = require("./routes/User");
 const listingRoutes = require("./routes/Listing");
 const generalRoutes = require("./routes/General");
-const session = require("express-session");
-const app = express();
-app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true,  cookie: { secure: true }}));
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use((req,res,next)=>{
 
-    //This is a global variable that can be accessed by templates
-    res.locals.s_register= req.session.userInfo;
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static('public'));
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true,  cookie: { secure: true }}));
+app.use((req,res,next)=>{
+    res.locals.user= req.session.userInfo;
     next();
 })
-app.use(express.static('public'));
-app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars');
 app.use("/",generalRoutes);
 app.use("/user",userRoutes);
 app.use("/listing",listingRoutes);
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
 
 const PORT = process.env.PORT || 3000;
 
 let date = new Date;
 let f_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
-
 // Set up Mongoose and Sendgrid
-const mongoose = require('mongoose');
-const sendgrid = require('@sendgrid/mail');
-require("dotenv").config({path:'./config/keys.env'});
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 pass = process.env.MONGO_DB_PASSWORD
 user = process.env.MONGO_DB_USERNAME

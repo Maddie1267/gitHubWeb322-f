@@ -1,24 +1,24 @@
 const express = require('express')
 const router = express.Router();
-router.use(express.static('public'));
-const path = require("path");
-const Register = require("../models/User");
-const sendgrid = require('@sendgrid/mail');
+const User = require("../models/User");
 const bcrypt = require('bcryptjs');
-require("dotenv").config({path:'./config/keys.env'});
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
-router.get("/registeration",(req,res)=>
+const auth = require("../middleware/auth")
+const sendgrid = require('@sendgrid/mail');
+router.get('/registeration',(req,res)=>
 {
     //res.send("Hello")syy
-    res.render("register")
+    res.render('register')
    
 }); 
 
 
-router.post("/registeration",(req,res)=> {
+router.post('/registeration',(req,res)=> {
     const errors =[];
+
     const valid =[];
+
     errors[0] = "Please Enter: ";
+   
     if 
     (req.body.fname=="")
     {
@@ -61,17 +61,17 @@ router.post("/registeration",(req,res)=> {
     }  
     else
     {
-        const w_register = {
+        const loginData = {
             eMail : req.body.email,
             firstName : req.body.fname,
             lastName : req.body.lname,
             password : req.body.pword
         }
-        const s_register = new Register(w_register);
-        s_register.save()
+        const saveLogin = new User(loginData);
+        saveLogin.save()
         .then(()=>{
             const msg = {
-                to: w_register.eMail,
+                to: loginData.eMail,
                 from: 'madeline.allinson@hotmail.com',
                 subject: "Welcome To MaddieBnB",
                 text: "Hello!",
@@ -79,11 +79,11 @@ router.post("/registeration",(req,res)=> {
               }
               sendgrid.send(msg).catch(err=>console.log(err))
               //   res.redirect('/');
-              valid.push(`Success! Welcome ${req.body.fname}`)
-              res.render("register",
-              {
-                 register:valid 
-              })
+            //  valid.push(`Success! Welcome ${req.body.fname}`)
+              res.redirect("/user/login"); 
+            //  {
+               //  register:valid 
+              //})
         })
         .catch(err=>{
             console.log(err);
@@ -102,7 +102,7 @@ router.post("/registeration",(req,res)=> {
 router.get("/login",(req,res)=>
 {
     //res.send("Hello")
-    res.render("home")
+    res.render("login")
     
 }); 
 router.post("/login",(req,res)=>{
@@ -112,37 +112,37 @@ router.post("/login",(req,res)=>{
         password : req.body.l_pword
     }
     console.log(formData);
-    Register.findOne({eMail:formData.email})
-    .then(s_register=>{
-     if(s_register==null){
+    User.findOne({eMail:formData.email})
+    .then(user=>{
+     if(user==null){
          errors.push("Please Enter the email You signed up with!")
          
-         res.render("home",{
+         res.render("login",{
              l_error:errors
              
          })
      }
      else {
-         console.log("Valid email");
-         bcrypt.compare(formData.password,s_register.password)
+         //console.log("Valid email");
+         bcrypt.compare(formData.password,user.password)
          .then(isMatched=>{
 
             if(isMatched==true)
             {
+               
                 //It means that the user is authenticated 
                     //console.log(req.session.firstName)
                 //create session
-               
-               req.session.userInfo=s_register;
-    
-               console.log(req.session.userInfo);
-             res.redirect("/user/profile")
+               req.session.userInfo=user;
+                console.log("ismatched");
+            console.log(req.session.userInfo);
+             res.redirect("user/profile")
             }
 
             else
             {
                 errors.push("Sorry, your password does not match");
-                res.render("home",{
+                res.render("user/login",{
                     l_error:errors
                 })
             }
@@ -162,7 +162,7 @@ router.post("/login",(req,res)=>{
 
     if(errors.length >= 1 ){
 
-        res.render("home",{
+        res.render("login",{
             l_error: errors,
         })
 
@@ -171,9 +171,10 @@ router.post("/login",(req,res)=>{
     
 
 })
-router.get("/profile",(req,res)=>
+router.get("/profile", auth,(req,res)=>
 {
-    res.render("userDashboard");
+  
+    res.render("profile");
 });
 
 module.exports=router;

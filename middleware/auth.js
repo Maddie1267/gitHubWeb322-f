@@ -1,7 +1,7 @@
   
-const hasAccess = (req,res,next)=>
+const auth = (req,res,next)=>
 {
-    if(req.session.user==null)
+    if(req.session.userInfo==null)
     {
         res.redirect("/user/login");
     }
@@ -11,4 +11,4 @@ const hasAccess = (req,res,next)=>
     }
 }
 
-module.exports=hasAccess;
+module.exports=auth;
