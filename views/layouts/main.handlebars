@@ -3,15 +3,18 @@
     <head>
         <meta charset="utf-8">
         <title>AirBNB App</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/style2.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/style2.css">
     </head>
     <body>
         <div class="navBar">
                 <nav> 
-                    <img id="logo" src="img/Capture.PNG">
-                    <a href="/listing">Room Listings</a>
-                    <a href="/registeration">Register Today</a>
+                    <img id="logo" src="/img/Capture.PNG">
+                    {{#if user}}
+                    {{else}}
+                    <a href="/Listing/listing">Room Listings</a>
+                    <a href="/User/registeration">Register Today</a>
+                    {{/if}}
                     <a href="/">Home</a>
                    </nav>
             </div>
