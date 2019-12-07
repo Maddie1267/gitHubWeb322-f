@@ -8,7 +8,12 @@ const session = require("express-session");
 const app = express();
 app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true,  cookie: { secure: true }}));
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use((req,res,next)=>{
 
+    //This is a global variable that can be accessed by templates
+    res.locals.s_register= req.session.userInfo;
+    next();
+})
 app.use(express.static('public'));
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -20,12 +25,7 @@ const PORT = process.env.PORT || 3000;
 
 let date = new Date;
 let f_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
-app.use((req,res,next)=>{
 
-    //This is a global variable that can be accessed by templates
-    res.locals.s_register= req.session.userInfo;
-    next();
-})
 // Set up Mongoose and Sendgrid
 const mongoose = require('mongoose');
 const sendgrid = require('@sendgrid/mail');
