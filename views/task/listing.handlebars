@@ -1,10 +1,13 @@
 <top><h1> Current Listings For {{city}}</h1>
 <span></span></top>
          {{#each roomList}} 
-   
-    </div>
+        {{this.roomName}}
+        {{this.roomDesc}}
+        {{this.roomLocation}}
+       
+       
     {{else}}
-        No new in database 
+        <p>No new in database</p> 
      {{/each}}
 <div id="listingsBox">
 
@@ -22,6 +25,14 @@
            <img src="/img/room6.PNG" height="100%" width="100%">
          <p><b>Toronto <br> $168 CAD/Night</b><br>Modern design with city views</p>
            </div>
+              {{#each roomList}}
+             {{#eq this.roomLocation "Toronto"}}
+        <div class="pic">
+            <img src="/img/{{this.roomPic}}" height="100%" width="100%">
+            <p><b>{{this.roomLocation}} <br> ${{this.roomPrice}} CAD/Night</b><br>{{this.roomDesc}}</p>
+        </div>
+        {{/eq}}
+        {{/each}}
            {{/if}}
            {{#if Hamilton}}
             <div class="pic">
@@ -34,6 +45,15 @@
            <img src="/img/room3.PNG" height="100%" width="100%">
            <p><b>Ottawa <br> $155 CAD/Night</b><br>Modern 1Bdrm Apartment</p>
            </div>
+              {{#each roomList}}
+             {{#eq this.roomLocation "Ottawa"}}
+        <div class="pic">
+        
+            <img src="/img/{{this.roomPic.name}}" height="100%" width="100%">
+            <p><b>{{this.roomLocation}} <br> ${{this.roomPrice}} CAD/Night</b><br>{{this.roomDesc}}</p>
+        </div>
+        {{/eq}}
+        {{/each}}
            {{/if}}
       {{#if Muskoka}}
        <div class="pic">
@@ -41,6 +61,7 @@
           <p> <b>Muskoka <br> $175 CAD/Night</b><br>Romantic Cottage Getaway</p>
            </div>
            {{/if}}
+  
       
        
     </div>

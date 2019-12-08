@@ -156,7 +156,8 @@ router.post('/add',auth,(req,res)=>{
         roomName: req.body.roomName,
         roomPrice: req.body.roomPrice,
         roomDesc: req.body.roomDesc,
-        roomLocation: req.body.roomLocation
+        roomLocation: req.body.roomLocation,
+        
     };
     if (req.files==null){
         errors.push("Upload a picture!")
@@ -177,6 +178,7 @@ else{
         req.files.roomPic.name = `pic_${req.files.roomPic.name}`
         req.files.roomPic.mv(`public/img/${req.files.roomPic.name}`)
         console.log(`${roomInfo.roomName} Saved!`)
+        roomPic : req.files.roomPic.name
         res.redirect(`/task/dashboard`)
     })
     .catch(err=> console.log(err))
@@ -187,10 +189,11 @@ router.get("/listing",(req,res)=>
 {
     Room.find()
     .then((addRoom)=>{
+    
     if(citySelect == "Toronto"){
         res.render('task/listing', {
             Toronto: true,
-            city: citySelect
+            city: citySelect,
             roomList :addRoom
         })
     } else if(citySelect == "Hamilton"){

@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+var helpers = require('handlebars-helpers')();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -12,6 +13,7 @@ const taskRoutes = require("./routes/task");
 const generalRoutes = require("./routes/task");
 
 const app = express();
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(fileupload())
