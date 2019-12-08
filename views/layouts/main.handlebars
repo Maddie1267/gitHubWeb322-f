@@ -10,12 +10,16 @@
         <div class="navBar">
                 <nav> 
                     <img id="logo" src="/img/Capture.PNG">
+                  
                     {{#if user}}
+                    <a href="/user/logout">Logout</a>
                     {{else}}
                     <a href="/Listing/listing">Room Listings</a>
-                    <a href="/User/registeration">Register Today</a>
+                    <a href="/task/registeration">Register Today</a>
+                    <a href="/user/login">Login</a>
                     {{/if}}
-                    <a href="/">Home</a>
+                      <a href="/">Home</a>
+                    
                    </nav>
             </div>
             <div class="container"></div>

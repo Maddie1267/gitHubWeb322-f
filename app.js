@@ -7,22 +7,23 @@ const sendgrid = require('@sendgrid/mail');
 
 require("dotenv").config({path:'./config/keys.env'});
 
-const userRoutes = require("./routes/User");
-const listingRoutes = require("./routes/Listing");
+const userRoutes = require("./routes/user");
+const taskRoutes = require("./routes/task");
 const generalRoutes = require("./routes/General");
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('public'));
-app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true,  cookie: { secure: true }}));
+app.use(session({secret: 'ssshhhhh'}));
 app.use((req,res,next)=>{
     res.locals.user= req.session.userInfo;
     next();
 })
 app.use("/",generalRoutes);
 app.use("/user",userRoutes);
-app.use("/listing",listingRoutes);
+app.use("/task",taskRoutes);
+
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 

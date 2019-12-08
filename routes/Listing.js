@@ -7,4 +7,6 @@ router.get("/listing",(req,res)=>
     res.render("listings")
    
 }); 
+
+
 module.exports=router;
