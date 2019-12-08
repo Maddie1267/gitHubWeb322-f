@@ -1,10 +1,38 @@
 const express = require('express')
 const router = express.Router();
 const User = require("../models/User");
-const bcrypt = require('bcryptjs');
+const Room = require('../models/room')
+const citySelect = [];
+
+let date = new Date;
+let f_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
+const path = require("path");
 const auth = require("../middleware/auth")
 const sendgrid = require('@sendgrid/mail');
+router.get('/', (req, res)=>{
+    res.render('home')
+})
+router.post("/",(req,res)=>{
+    const errors =[];    
+    if (req.body.checkIn < f_date){
+        errors.push("Invalid Checkin!");
+    }
+    if (req.body.checkOut <= req.body.checkIn){
+        errors.push("Invalid Checkout!");
+    }
+    if(errors.length >= 1 ){
 
+        res.render("home",{
+            error: errors,
+        })
+    }
+    else {
+        citySelect.pop();
+        citySelect.push(`${req.body.c_city}`)
+
+        res.redirect("/task/listing")
+    }   
+})
 router.get('/registeration',(req,res)=>
 {
     //res.send("Hello")syy
@@ -81,9 +109,7 @@ router.post('/registeration',(req,res)=> {
               //   res.redirect('/');
             //  valid.push(`Success! Welcome ${req.body.fname}`)
               res.redirect("/user/login"); 
-            //  {
-               //  register:valid 
-              //})
+    
         })
         .catch(err=>{
             console.log(err);
@@ -132,13 +158,66 @@ router.post('/add',auth,(req,res)=>{
         roomDesc: req.body.roomDesc,
         roomLocation: req.body.roomLocation
     };
-    const addRoom = new Room(roomInfo);
+    if (req.files==null){
+        errors.push("Upload a picture!")
+    }
+
+    if(errors.length > 0)
+    {
+        res.render("task/addForm",{
+            errors:errors
+        })
+    }
+else{
+    const addRoom = new Room(roomInfo)
     addRoom.save({validateBeforeSave: true})
     .then(()=>{
+        console.log(`${req.files.roomPic.name}`);
+        console.log(`${req.files.roomPic}`);
+        req.files.roomPic.name = `pic_${req.files.roomPic.name}`
+        req.files.roomPic.mv(`public/img/${req.files.roomPic.name}`)
         console.log(`${roomInfo.roomName} Saved!`)
         res.redirect(`/task/dashboard`)
     })
     .catch(err=> console.log(err))
+}
 })
+
+router.get("/listing",(req,res)=>
+{
+    Room.find()
+    .then((addRoom)=>{
+    if(citySelect == "Toronto"){
+        res.render('task/listing', {
+            Toronto: true,
+            city: citySelect
+            roomList :addRoom
+        })
+    } else if(citySelect == "Hamilton"){
+        res.render('task/listing', {
+            Hamilton: true,
+            city: citySelect,
+            roomList:addRoom
+        })
+    }else if(citySelect == "Muskoka"){
+        res.render('task/listing', {
+            Muskoka: true,
+            city: citySelect,
+            roomList:addRoom
+        })
+    }else if(citySelect == "Ottawa"){
+        res.render('task/listing', {
+            Ottawa: true,
+            city: citySelect,
+            roomList :addRoom
+        })
+    } 
+    else
+    res.render('task/listing', {
+        empty: true
+    })
+})
+})
+
 
 module.exports = router;

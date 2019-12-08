@@ -1,9 +1,11 @@
     <h2>Add Room</h2>
-    
-    <form method="POST" action="/task/add">
+    {{#each errors}}
+    <div class="error">{{this}}</div>
+{{/each}}
+    <form method="POST" action="/task/add" enctype="multipart/form-data">
 
         <label>Room Name</label>
-        <input type="text" name="roomName" id="title"> <br><br>
+        <input type="text" name="roomName"> <br><br>
         <label>Price</label>
         <input type="number" name="roomPrice" step="0.01"><br><br>
         <label>Description</label>
@@ -16,7 +18,7 @@
                 <option value="Muskoka">Muskoka</option>
             </select> <br><br>
         <label>Add a Picture!</label>
-        <input type="file" name="roomPicture">
+        <input type="file" name="roomPic">
         <br><br>
 
         <input type="submit" value="Add Room">

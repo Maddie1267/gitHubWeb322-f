@@ -4,17 +4,18 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const sendgrid = require('@sendgrid/mail');
-
+const fileupload = require("express-fileupload");
 require("dotenv").config({path:'./config/keys.env'});
 
 const userRoutes = require("./routes/user");
 const taskRoutes = require("./routes/task");
-const generalRoutes = require("./routes/General");
+const generalRoutes = require("./routes/task");
 
 const app = express();
-
-app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(fileupload())
+
 app.use(session({secret: 'ssshhhhh'}));
 app.use((req,res,next)=>{
     res.locals.user= req.session.userInfo;
