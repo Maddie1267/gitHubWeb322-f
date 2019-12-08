@@ -1,15 +1,10 @@
 <top><h1> Current Listings For {{city}}</h1>
 <span></span></top>
-         {{#each roomlist}} 
-     <div>
-        <a href="/task/profile/{{this._id}}">{{this.title}}</a> &nbsp;&nbsp;
-        <a href="/task/edit/{{this._id}}">Edit</a>&nbsp;&nbsp;
-        <form id="deleteButtonForm" method="POST" action="/task/delete/{{this._id}}?_method=DELETE">
-            <input type="submit" value="Delete" class="delButtons" data-id="{{this.id}}" data-title="{{this.title}}">
-        </form>
+         {{#each roomList}} 
+   
     </div>
     {{else}}
-        No tasks in database 
+        No new in database 
      {{/each}}
 <div id="listingsBox">
 
