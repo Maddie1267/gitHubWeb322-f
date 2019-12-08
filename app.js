@@ -30,8 +30,7 @@ app.set('view engine', 'handlebars');
 
 const PORT = process.env.PORT || 3000;
 
-let date = new Date;
-let f_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() 
+
 // Set up Mongoose and Sendgrid
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 pass = process.env.MONGO_DB_PASSWORD
@@ -45,30 +44,8 @@ mongoose.connect(key, {useNewUrlParser: true, useUnifiedTopology: true })
 .catch((err)=>{
     console.log(`ERROR: ${err}`);
 })
-app.get("/",(req,res)=>
-{
-    //res.send("Hello")
-    res.render("home")
 
-}); 
-app.post("/",(req,res)=>{
-    const errors =[];    
-    if (req.body.checkIn < f_date){
-        errors.push("Invalid Checkin!");
-    }
-    if (req.body.checkOut <= req.body.checkIn){
-        errors.push("Invalid Checkout!");
-    }
-    if(errors.length >= 1 ){
 
-        res.render("home",{
-            error: errors,
-        })
-    }
-    else {
-        res.redirect("/listing")
-    }   
-})
 
 //
 app.listen(PORT, ()=>{

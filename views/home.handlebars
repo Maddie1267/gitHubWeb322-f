@@ -18,9 +18,9 @@
   </div>
   {{/each}}
         <label class="lab">Where?</label>
-            <select class="textbox">
+            <select class="textbox" name="c_city">
                 <option value="Toronto">Toronto</option>
-                <option value="Hamilon">Hamilton</option>
+                <option value="Hamilton">Hamilton</option>
                 <option value="Muskoka">Muskoka</option>
                 <option value="Ottawa">Ottawa</option>
             </select>
@@ -41,27 +41,4 @@
             <hr>
         <input type="submit" class="button" value="Check For Rooms">
     </form>
-</div>
-<div id="login">
-    <h1 id="getStart">Login</h4>
-    
-     <form method="POST" action="/User/login">
-      {{#each l_error}}
-    <div class="errors"> 
-       {{this}}
-  </div>
-  {{/each}}
-     
-     <label class="userName">Enter Your Email</label>
-     <input type="email" class="textbox" name="l_email"> 
-     
-    
-     <label>Enter Your Password</label>
-     <input type="password" class="textbox" name="l_pword">
-    
-     <p>Not a member? <a href="/registeration">Click here</a></p>
-     
-     <input type="submit" class="button2" value="Sign In"></button>
-     </form>
-</div>
 </div>

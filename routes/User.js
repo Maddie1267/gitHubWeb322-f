@@ -41,7 +41,7 @@ router.post("/login",(req,res)=>{
                req.session.userInfo=user;
                 console.log("ismatched");
             console.log(req.session.userInfo);
-             res.redirect("/task/profile")
+             res.redirect("/task/dashboard")
             }
 
             else

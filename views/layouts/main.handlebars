@@ -13,8 +13,10 @@
                   
                     {{#if user}}
                     <a href="/user/logout">Logout</a>
+                    <a href="/task/profile/">Profile</a>
+                    <a href="/task/dashboard">Dashboard</a>
                     {{else}}
-                    <a href="/Listing/listing">Room Listings</a>
+                   
                     <a href="/task/registeration">Register Today</a>
                     <a href="/user/login">Login</a>
                     {{/if}}
@@ -30,8 +32,11 @@
                      </header>
 
         {{{body}}}
+        {{#if user}}
+        {{else}}
         <section id="promo"><p>50% on your first booking! Use Promo Code  <em>iNeedaVacation</em>  and save!!</p></section>
-        <footer class="footer">
+   {{/if}}
+    <footer class="footer">
            <div class="footerBar"></div>
            <p id="m">Created By Madeline Allinson --- © 2019 MaddieBNB. All rights reserved.</p>
         </footer> 

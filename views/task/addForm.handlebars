@@ -1,0 +1,24 @@
+    <h2>Add Room</h2>
+    
+    <form method="POST" action="/task/add">
+
+        <label>Room Name</label>
+        <input type="text" name="roomName" id="title"> <br><br>
+        <label>Price</label>
+        <input type="number" name="roomPrice" step="0.01"><br><br>
+        <label>Description</label>
+        <textarea id="description" name="roomDesc"></textarea><br><br>
+        <label>Location</label>
+        <select name="roomLocation">
+                <option value="Toronto">Toronto</option>
+                <option value="Ottawa">Ottawa</option>
+                <option value="Hamilton">Hamilton</option>
+                <option value="Muskoka">Muskoka</option>
+            </select> <br><br>
+        <label>Add a Picture!</label>
+        <input type="file" name="roomPicture">
+        <br><br>
+
+        <input type="submit" value="Add Room">
+
+    </form>

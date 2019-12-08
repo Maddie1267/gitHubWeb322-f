@@ -103,20 +103,42 @@ router.get('/profile', auth, (req, res)=>{
     res.render('user/profile')
 })
 
-router.get('/dashboard/:id', auth, (req, res)=>{
-    User.findById(req.params.id)
+router.get('/dashboard', auth, (req, res)=>{
+    User.findById(req.session.userInfo._id)
     .then(task=>{ 
-       // if (task.Status == "Admin"){
-       // res.render('task/adminDashboard'),{
-         //   userInfo: task
-      //  }}
-       // else{
+        if (task.Status == "Admin"){
+        res.render('task/adminDashboard'),{
+            userInfo: task
+        }}
+        else{
             res.render(`task/dashboard`),{
                 userInfo: task
             }
-       // }
+        }
     })
     
+})
+router.get('/add',auth,(req,res)=>{
+    if(req.session.userInfo.Status == "Admin"){
+        res.render('task/addForm')
+    }
+})
+router.post('/add',auth,(req,res)=>{
+    const errors = [];
+    
+    const roomInfo = {
+        roomName: req.body.roomName,
+        roomPrice: req.body.roomPrice,
+        roomDesc: req.body.roomDesc,
+        roomLocation: req.body.roomLocation
+    };
+    const addRoom = new Room(roomInfo);
+    addRoom.save({validateBeforeSave: true})
+    .then(()=>{
+        console.log(`${roomInfo.roomName} Saved!`)
+        res.redirect(`/task/dashboard`)
+    })
+    .catch(err=> console.log(err))
 })
 
 module.exports = router;
