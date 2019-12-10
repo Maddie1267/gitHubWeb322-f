@@ -1,4 +1,14 @@
-
+<div class="admin">
 <h1>Welcome Administrator {{user.firstName}} {{user.lastName}}</h1>
+<hr>
 <a href="/task/add">Add a Room</a>
-
+<hr>
+ {{#each room}}
+ <div class="rooms">
+    <image height="150px" width="150px" src="/img/{{this.roomPic}}"></image>
+    <h2 >{{this.roomName}}</h2>
+    <a href="/task/editForm/{{this._id}}">Edit</a>
+    </div>
+   
+{{/each}}
+ </div>

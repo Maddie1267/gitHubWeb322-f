@@ -69,6 +69,11 @@ router.post('/registeration',(req,res)=> {
     {
         errors.push("• A valid Password")
     } 
+    if
+    (req.body.pword2 != req.body.pword)
+    {
+        errors.push("Passwords Aren't The Same!")
+    } 
     if(req.body.pword.length < 8)
     {
         errors.push("Password must be minimum 8 Characters")
@@ -132,17 +137,27 @@ router.get('/profile', auth, (req, res)=>{
 router.get('/dashboard', auth, (req, res)=>{
     User.findById(req.session.userInfo._id)
     .then(task=>{ 
+        Room.find({_id:task.booking})
+        .then(bookings=>{
+            
         if (task.Status == "Admin"){
-        res.render('task/adminDashboard'),{
-            userInfo: task
-        }}
+            Room.find({roomAdmin:req.session.userInfo._id})
+             .then(room => {
+        res.render('task/adminDashboard',{
+            userInfo: task,
+            bookings: bookings,
+            room: room
+        })
+    })
+}
         else{
             res.render(`task/dashboard`),{
-                userInfo: task
+                userInfo: task,
+                bookings: bookings
             }
         }
     })
-    
+})
 })
 router.get('/add',auth,(req,res)=>{
     if(req.session.userInfo.Status == "Admin"){
@@ -157,7 +172,7 @@ router.post('/add',auth,(req,res)=>{
         roomPrice: req.body.roomPrice,
         roomDesc: req.body.roomDesc,
         roomLocation: req.body.roomLocation,
-        
+        roomAdmin: req.session.userInfo._id
     };
     if (req.files==null){
         errors.push("Upload a picture!")
@@ -175,26 +190,37 @@ else{
     .then(()=>{
         console.log(`${req.files.roomPic.name}`);
         console.log(`${req.files.roomPic}`);
-        req.files.roomPic.name = `pic_${req.files.roomPic.name}`
+        req.files.roomPic.name = `db_${addRoom._id}${path.parse(req.files.roomPic.name).ext}`
         req.files.roomPic.mv(`public/img/${req.files.roomPic.name}`)
-        console.log(`${roomInfo.roomName} Saved!`)
-        roomPic : req.files.roomPic.name
-        res.redirect(`/task/dashboard`)
+       
+    })  
+    .then(()=>{
+        Room.findByIdAndUpdate(addRoom._id, {
+            roomPic:req.files.roomPic.name
+        })
+        .then(()=>{
+            console.log(`${roomInfo.roomName} Saved!`)
+            res.redirect(`/task/dashboard`)
+        })
     })
     .catch(err=> console.log(err))
 }
 })
-
-router.get("/listing",(req,res)=>
+router.get("/listing", auth,(req,res)=>
 {
+    
+    User.findById(req.session.userInfo._id)
+    .then(task=>{ 
     Room.find()
     .then((addRoom)=>{
-    
+    console.log(userInfo);
     if(citySelect == "Toronto"){
         res.render('task/listing', {
             Toronto: true,
             city: citySelect,
-            roomList :addRoom
+            roomList :addRoom,
+            userInfo: task
+            
         })
     } else if(citySelect == "Hamilton"){
         res.render('task/listing', {
@@ -220,6 +246,44 @@ router.get("/listing",(req,res)=>
         empty: true
     })
 })
+})
+})
+
+router.get('/editForm/:id',auth,(req,res)=>{
+    Room.findById(req.params.id)
+    .then(room=>{
+        if(room.roomAdmin == req.session.userInfo._id){
+            res.render('task/editForm', {
+                roomData: room
+            })
+        }
+    })
+    .catch(err=> console.log(err))
+})
+router.put('/editForm/:id',auth,(req,res)=>{
+    const error = [];
+    Room.findById(req.params.id)
+    .then(room=>{
+        room.roomName = req.body.roomName;
+        room.roomPrice = req.body.roomPrice;
+        room.roomDesc = req.body.roomDesc;
+        room.roomLocation = (req.body.roomLocation == "none")? room.roomLocation:req.body.roomLocation;
+        room.save()
+        .then(()=>{
+            res.redirect(`/task/dashboard`)
+        })
+        .catch(err=>{
+            console.log(err)
+            error.push("Something went wrong. Check the following:")
+            error.push("Title is less than 25 characters")
+            error.push("Price is above $0")
+            error.push("Description is less than 250 characters")
+            res.render('task/editRoom',{
+                roomData:room,
+                error:error
+            })
+        }) 
+    })
 })
 
 

@@ -1,0 +1,32 @@
+
+    <div class="backgroundImage" id="adminBackground"></div>
+    {{#each error}}
+    <div class="errorMessages">{{this}}</div>
+    {{/each}}
+    <div>
+        <h2>Edit Room {{roomData.roomName}}</h2>
+       <form method="POST" action="/task/editForm/{{roomData._id}}/?_method=PUT" enctype="multipart/form-data">
+       <label>Update Room Name:</label><br>
+       <input type="text" name="roomName" value="{{roomData.roomName}}">
+       <br><br>
+       <label>Update Price:</label><br>
+       <input type="number" name="roomPrice" step="0.01" value="{{roomData.roomPrice}}">
+       <br><br>
+       <label>Update Description:</label><br>
+       <textarea name="roomDesc" cols="20" rows="10" maxlength="250">{{roomData.roomDesc}}</textarea>
+       <br><br>
+       <label>Update Location: {{roomData.roomLocation}})</label><br>
+      <select name="roomLocation">
+                <option value="Toronto">Toronto</option>
+                <option value="Ottawa">Ottawa</option>
+                <option value="Hamilton">Hamilton</option>
+                <option value="Muskoka">Muskoka</option>
+            </select> <br><br>
+        <br><br>
+        <label>Room Picture:</label>
+        <input type="file" name="roomPicture">
+        <br><br>
+        <input type="submit" value="Edit Room">
+       </form>
+
+    </div>

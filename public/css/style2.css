@@ -93,6 +93,10 @@ hr {
     text-align: center;
     font-size: 30px;
 }
+.pic a {
+    color: green;
+    
+}
 
 #listingsBox p {
     display: block;
@@ -145,4 +149,5 @@ hr {
     font-size: 20px;
     Background-color: rgb(170, 2, 2); 
 }
+
 

@@ -7,7 +7,8 @@ const roomSchema = new Schema({
     roomPrice: Number,
     roomDesc : String,
     roomLocation : String,
-    roomPic : String
+    roomPic : String,
+    roomAdmin : String
 })
 
 

@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const sendgrid = require('@sendgrid/mail');
 const fileupload = require("express-fileupload");
+const methodOverride = require ("method-override")
 require("dotenv").config({path:'./config/keys.env'});
 
 const userRoutes = require("./routes/user");
@@ -15,6 +16,7 @@ const generalRoutes = require("./routes/task");
 const app = express();
 
 app.use(express.static('public'));
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(fileupload())
 
