@@ -15,8 +15,13 @@ const bcrypt = require('bcryptjs');
         Status: {
             type: String,
             default: "User"
-        }
+        },
+        booking: {
+            type: Array,
+            default: [],
+
         //DOB: Date
+        }
     })
 
     loginSchema.pre("save",function(next){

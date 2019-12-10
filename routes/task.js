@@ -139,7 +139,7 @@ router.get('/dashboard', auth, (req, res)=>{
     .then(task=>{ 
         Room.find({_id:task.booking})
         .then(bookings=>{
-            
+           
         if (task.Status == "Admin"){
             Room.find({roomAdmin:req.session.userInfo._id})
              .then(room => {
@@ -147,14 +147,15 @@ router.get('/dashboard', auth, (req, res)=>{
             userInfo: task,
             bookings: bookings,
             room: room
+            
         })
     })
-}
-        else{
-            res.render(`task/dashboard`),{
+}  else{
+
+            res.render(`task/dashboard`,{
                 userInfo: task,
                 bookings: bookings
-            }
+            })
         }
     })
 })
@@ -206,14 +207,15 @@ else{
     .catch(err=> console.log(err))
 }
 })
-router.get("/listing", auth,(req,res)=>
+router.get("/listing",(req,res)=>
 {
-    
+    if(req.session.userInfo){
     User.findById(req.session.userInfo._id)
     .then(task=>{ 
+    console.log("logged in");
     Room.find()
     .then((addRoom)=>{
-    console.log(userInfo);
+    
     if(citySelect == "Toronto"){
         res.render('task/listing', {
             Toronto: true,
@@ -221,6 +223,46 @@ router.get("/listing", auth,(req,res)=>
             roomList :addRoom,
             userInfo: task
             
+        })
+    } else if(citySelect == "Hamilton"){
+        res.render('task/listing', {
+            Hamilton: true,
+            city: citySelect,
+            roomList:addRoom,
+            userInfo: task
+        })
+    }else if(citySelect == "Muskoka"){
+        res.render('task/listing', {
+            Muskoka: true,
+            city: citySelect,
+            roomList:addRoom,
+            userInfo: task
+        })
+    }else if(citySelect == "Ottawa"){
+        res.render('task/listing', {
+            Ottawa: true,
+            city: citySelect,
+            roomList :addRoom,
+            userInfo: task
+        })
+    } 
+    else
+    res.render('task/listing', {
+        empty: true
+    })
+})
+})
+    }
+    else {
+        Room.find()
+    .then((addRoom)=>{
+        console.log("not logged in");
+    if(citySelect == "Toronto"){
+        res.render('task/listing', {
+            Toronto: true,
+            city: citySelect,
+            roomList :addRoom
+ 
         })
     } else if(citySelect == "Hamilton"){
         res.render('task/listing', {
@@ -246,7 +288,8 @@ router.get("/listing", auth,(req,res)=>
         empty: true
     })
 })
-})
+
+    }
 })
 
 router.get('/editForm/:id',auth,(req,res)=>{
@@ -267,7 +310,7 @@ router.put('/editForm/:id',auth,(req,res)=>{
         room.roomName = req.body.roomName;
         room.roomPrice = req.body.roomPrice;
         room.roomDesc = req.body.roomDesc;
-        room.roomLocation = (req.body.roomLocation == "none")? room.roomLocation:req.body.roomLocation;
+        room.roomLocation = req.body.roomLocation;
         room.save()
         .then(()=>{
             res.redirect(`/task/dashboard`)
@@ -283,6 +326,23 @@ router.put('/editForm/:id',auth,(req,res)=>{
                 error:error
             })
         }) 
+    })
+})
+
+router.get("/book/:id",auth,(req,res)=>{
+    Room.findById(req.params.id)
+    .then(room=>{
+        User.findByIdAndUpdate(req.session.userInfo._id, {
+           booking: room._id
+        })
+        .then(()=>{
+            res.redirect('/task/dashboard')
+        })
+        .catch(err=>{
+            console.log(`${err}`);
+            
+        })
+
     })
 })
 

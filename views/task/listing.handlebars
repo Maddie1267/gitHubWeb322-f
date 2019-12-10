@@ -1,36 +1,28 @@
 <top><h1> Current Listings For {{city}}</h1>
-<span></span></top>   
-
+<span></span></top>                
 <div id="listingsBox">
 
     <div id="grid1">
       {{#if Toronto}}
        <div class="pic">
            <img src="/img/room2.PNG" height="100%" width="100%">
-          <p><b>Toronto <br> $114 CAD/Night</b><br>Single Bedroom near CN Tower</p>
+          <p><b>Toronto <br> $114 CAD/Night</b><br>Single Bedroom near CN Tower <br>Unavailable</p>
        </div>
      <div class="pic">
            <img src="/img/room4.PNG" height="100%" width="100%">
-           <p><b>Toronto <br> $199 CAD/Night</b><br>Luxury Oasis in Downtown Toronto</p>
+           <p><b>Toronto <br> $199 CAD/Night</b><br>Luxury Oasis in Downtown Toronto <br>Unavailable</p>
            </div>
      <div class="pic">
            <img src="/img/room6.PNG" height="100%" width="100%">
-         <p><b>Toronto <br> $168 CAD/Night</b><br>Modern design with city views</p>
+         <p><b>Toronto <br> $168 CAD/Night</b><br>Modern design with city views <br>Unavailable</p>
            </div>
               {{#each roomList}}
              {{#eq this.roomLocation "Toronto"}}
         <div class="pic">
-            <img src="/img/{{this.roomPic}}" height="100%" width="100%">
+            <img src="/img/{{this.roomPic}}"  max-height="500px" width="100%">
             <p><b>{{this.roomLocation}}<br> {{this.roomName}}<br> ${{this.roomPrice}} CAD/Night</b><br>{{this.roomDesc}} <br> 
-            {{#if registers}}
-             <a id="bookingLink" href="/task/book/{{this._id}}">Book</a> {{/if}}</p>
-
-              
-  
-         
-           
-         
-       
+            {{#if ../user}} 
+             <a id="bookingLink" href="/task/book/{{this._id}}">Book</a>{{/if}} </p>
         </div>
         {{/eq}}
         {{/each}}
@@ -40,7 +32,7 @@
 
             <div class="pic">
           <img src="/img/room1.PNG" height="100%" width="100%">
-      <p><b>Hamilton <br> $120 CAD/Night</b><br>Cozy getaway on the lake</p>
+      <p><b>Hamilton <br> $120 CAD/Night</b><br>Cozy getaway on the lake<br>Unavailable</p>
       </div>
             {{#each roomList}}
              {{#eq this.roomLocation "Hamilton"}}
@@ -57,7 +49,7 @@
       {{#if Ottawa}}
        <div class="pic">
            <img src="/img/room3.PNG" height="100%" width="100%">
-           <p><b>Ottawa <br> $155 CAD/Night</b><br>Modern 1Bdrm Apartment</p>
+           <p><b>Ottawa <br> $155 CAD/Night</b><br>Modern 1Bdrm Apartment<br>Unavailable</p>
            </div>
               {{#each roomList}}
              {{#eq this.roomLocation "Ottawa"}}
@@ -74,7 +66,7 @@
       {{#if Muskoka}}
        <div class="pic">
            <img src="/img/room5.PNG" height="100%" width="100%">
-          <p> <b>Muskoka <br> $175 CAD/Night</b><br>Romantic Cottage Getaway</p>
+          <p> <b>Muskoka <br> $175 CAD/Night</b><br>Romantic Cottage Getaway<br>Unavailable</p>
            </div>
                  {{#each roomList}}
              {{#eq this.roomLocation "Muskoka"}}

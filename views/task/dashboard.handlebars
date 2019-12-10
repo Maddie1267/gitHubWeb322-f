@@ -3,3 +3,11 @@
 <h2>You have no rooms booked!</h2>
 <p><a href="/">Click Here</a> to book a room now!</p>
 
+<h2>Rooms Booked:</h2>
+     {{#each bookings}}
+    <div>
+        <img height="150px" width="150px"src="../img/{{this.roomPic}}" alt="{{this.roomName}}">
+        <h4>{{this.roomName}}/{{this.roomLocation}}</h4>
+        <p>${{this.roomPrice}}/night</p>
+    </div>
+{{/each}}

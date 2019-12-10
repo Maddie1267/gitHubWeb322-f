@@ -81,6 +81,7 @@ hr {
 #grid1 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+   
   grid-gap: 10px;
   
   padding: 10px;
@@ -89,14 +90,18 @@ hr {
 .pic {
     margin-left: 3vw;
     margin-right: 3vw;
-    margin-bottom: 60px;
+    margin-bottom: 70px;
+    
     text-align: center;
     font-size: 30px;
-}
-.pic a {
-    color: green;
     
 }
+.pic p {
+    display: block;
+    color: blue;
+    margin-bottom: 25px;
+}
+
 
 #listingsBox p {
     display: block;
