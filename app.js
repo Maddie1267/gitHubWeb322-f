@@ -9,7 +9,7 @@ const fileupload = require("express-fileupload");
 const methodOverride = require ("method-override")
 require("dotenv").config({path:'./config/keys.env'});
 
-const userRoutes = require("./routes/user");
+const userRoutes = require("./routes/User");
 const taskRoutes = require("./routes/task");
 const generalRoutes = require("./routes/task");
 
