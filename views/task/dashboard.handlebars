@@ -1,8 +1,8 @@
 <h1>Welcome User {{user.firstName}} {{user.lastName}}</h1>
 <br>
-<h2>You have no rooms booked!</h2>
-<p><a href="/">Click Here</a> to book a room now!</p>
 
+
+{{#if bookings}}
 <h2>Rooms Booked:</h2>
      {{#each bookings}}
     <div>
@@ -11,3 +11,7 @@
         <p>${{this.roomPrice}}/Night</p>
     </div>
 {{/each}}
+{{else}}
+<h2>You have no rooms booked!</h2>
+<p><a href="/">Click Here</a> to book a room now!</p>
+{{/if}}

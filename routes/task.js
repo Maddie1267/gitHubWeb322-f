@@ -118,7 +118,7 @@ router.post('/registeration',(req,res)=> {
         })
         .catch(err=>{
             console.log(err);
-            errors.push("Email already in use");
+            
             res.render("task/register",
             {
                 error:errors

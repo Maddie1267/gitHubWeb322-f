@@ -18,9 +18,8 @@ const bcrypt = require('bcryptjs');
         },
         booking: {
             type: Array,
-            default: [],
-
-        //DOB: Date
+            optional: true
+            
         }
     })
 
