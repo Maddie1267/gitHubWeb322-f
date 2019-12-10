@@ -19,7 +19,7 @@
               {{#each roomList}}
              {{#eq this.roomLocation "Toronto"}}
         <div class="pic">
-            <img src="/img/{{this.roomPic}}" height="100%" width="100%">
+            <div class="images"><img src="/img/{{this.roomPic}}" height="100%" width="100%"></div> 
             <p><b>{{this.roomLocation}}<br> {{this.roomName}}<br> ${{this.roomPrice}} CAD/Night</b><br>{{this.roomDesc}} <br> 
             {{#if ../user}} 
              <a id="bookingLink" href="/task/book/{{this._id}}">Book</a>{{/if}} </p>

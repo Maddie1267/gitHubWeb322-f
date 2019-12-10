@@ -91,10 +91,13 @@ hr {
     margin-left: 3vw;
     margin-right: 3vw;
     margin-bottom: 70px;
-    
+   
     text-align: center;
     font-size: 30px;
     
+}
+.images {
+    max-height: 400px;
 }
 .pic p {
     display: block;

@@ -116,9 +116,9 @@ router.post('/registeration',(req,res)=> {
               res.redirect("/user/login"); 
     
         })
-        .catch(err=>{
+        .catch((err)=>{
             console.log(err);
-            
+            errors.push("Email already in use");
             res.render("task/register",
             {
                 error:errors
@@ -339,8 +339,7 @@ router.get("/book/:id",auth,(req,res)=>{
             res.redirect('/task/dashboard')
         })
         .catch(err=>{
-            console.log(`${err}`);
-            
+            console.log(`${err}`)
         })
 
     })
